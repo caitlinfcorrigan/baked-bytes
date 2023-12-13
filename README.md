@@ -14,11 +14,16 @@ Baked Bytes uses Postgres for its menu and order history.
 ![ERD](ERD.png)
 
 ## Wireframes
+![App flow](Wireframes/app-flow.png)
+![Auth](Wireframes/auth.png)
 
 ## RESTful Routing Chart
 | HTTP METHOD (_Verb_) | URL (_Nouns_)     | CRUD    | Response          | Notes        |
 | -------------------- | ----------------- | ------- | ----------------- | ------------ |
-| GET | `/auth/google` | READ | Directs to Google login | |
+| GET | `/checkout` | READ | Directs to checkout page with payment form | |
+| POST | `/create-checout-session` | CREATE | Creates Stripe checkout session | |
+| GET | `/success.html` | READ | Redirects to success page after payment | |
+| GET | `/cancel.html` | READ | Redirects to cancellation page after user cancels | |
 
 
 ## User Stories
@@ -28,9 +33,8 @@ Baked Bytes uses Postgres for its menu and order history.
 - [ ] AAU, I want to view my order history.
 - [ ] AAU, I want to login/logout.
 - [ ] AAU, I want to create an account.
-- [ ] AAU,
-- [ ] AAU,
-- [ ] AAU,
+- [ ] AAU, I want to pay for my order using a credit card.
+- [ ] AAU, I want to select the flavors for my items.
 
 ## MVP Goals
 - [ ] Users can create an account.
@@ -45,15 +49,14 @@ Baked Bytes uses Postgres for its menu and order history.
 ## Stretch Goals (in order of priority)
 - [ ] Logged in users can pay for their purchase using Stripe API.
 - [ ] Users can create unique combinations of flavors (ex - vanilla cake with chocolate icing).
-- [ ] Additonal forms of authentication (ex - OAuth or JWT)
-- [ ] 
+- [ ] Search functionality.
 - [ ] 
 
 ## Sprints
 * Thursday:
     - [ ] Create product/order tables in database
     - [ ] Seed database with products
-    - [ ] Create Bytes (products) page
+    - [ ] Create Bytes (products) page (returns data)
 * Friday:
     - [ ] Implement Django authentication
     - [ ] Relate Users to Orders table
@@ -68,6 +71,7 @@ Baked Bytes uses Postgres for its menu and order history.
     - [ ] Implement Stripe API
     - [ ] Finish any coding related to payments/checkout
 * Tuesday:
+    - [ ] Implement Order History and Order Detail pages
     - [ ] Handle roadblocks / feature overflow
     - [ ] 
 * Wednesday:
