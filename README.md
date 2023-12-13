@@ -35,39 +35,40 @@ Baked Bytes uses Postgres for its menu and order history.
 ## MVP Goals
 - [ ] Users can create an account.
 - [ ] Users can login and log out.
+- [ ] Users can view items available for purchase.
 - [ ] Logged in users can view their order history.
 - [ ] Logged in users can add items to their cart.
-- [ ] Logged in users can purchase items in their cart.
-- [ ] Users can view items available for purchase.
+- [ ] Logged in users can "purchase" items in their cart.
 - [ ] 
 - [ ] 
 
 ## Stretch Goals (in order of priority)
+- [ ] Logged in users can pay for their purchase using Stripe API.
 - [ ] Users can create unique combinations of flavors (ex - vanilla cake with chocolate icing).
-- [ ] 
-- [ ] 
+- [ ] Additonal forms of authentication (ex - OAuth or JWT)
 - [ ] 
 - [ ] 
 
 ## Sprints
 * Thursday:
-    - [ ]  Create tables in database
-    - [ ]  Seed database with products
-    - [ ]  Create Product page
+    - [ ] Create product/order tables in database
+    - [ ] Seed database with products
+    - [ ] Create Bytes (products) page
 * Friday:
-    - [ ] 
-    - [ ] 
+    - [ ] Implement Django authentication
+    - [ ] Relate Users to Orders table
+    - [ ] Begin styling pages
 * Saturday:
-    - [ ] 
-    - [ ] 
+    - [ ] Add Cart functionality
+    - [ ] Practice Stripe API tutorial
 * Sunday:
-    - [ ] 
-    - [ ] 
+    - [ ] Implement checkout
+    - [ ] More styling
 * Monday:
-    - [ ] 
-    - [ ] 
+    - [ ] Implement Stripe API
+    - [ ] Finish any coding related to payments/checkout
 * Tuesday:
-    - [ ] 
+    - [ ] Handle roadblocks / feature overflow
     - [ ] 
 * Wednesday:
     - [ ] Finalize/clean up code
