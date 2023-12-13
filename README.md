@@ -24,6 +24,14 @@ Baked Bytes uses Postgres for its menu and order history.
 | POST | `/create-checout-session` | CREATE | Creates Stripe checkout session | |
 | GET | `/success.html` | READ | Redirects to success page after payment | |
 | GET | `/cancel.html` | READ | Redirects to cancellation page after user cancels | |
+| GET | `/bytes` | READ | Loads available bakery items | |
+| GET | `/bytes/:id` | READ | Loads item detail page | |
+| GET | `/home` | READ | Loads home page with About info | |
+| GET | `/cart` | READ | Displays items in the user's cart | |
+| POST | `/cart` | UPDATE | Adds user's selection to their cart | |
+| DELETE | `/cart` | DESTROY | Deletes item from user's cart | |
+| GET | `/orders` | READ | Previous orders | |
+| GET | `/orders/:id` | READ | Loads details of a specific order | |
 
 
 ## User Stories
@@ -43,39 +51,38 @@ Baked Bytes uses Postgres for its menu and order history.
 - [ ] Logged in users can view their order history.
 - [ ] Logged in users can add items to their cart.
 - [ ] Logged in users can "purchase" items in their cart.
-- [ ] 
-- [ ] 
 
 ## Stretch Goals (in order of priority)
 - [ ] Logged in users can pay for their purchase using Stripe API.
 - [ ] Users can create unique combinations of flavors (ex - vanilla cake with chocolate icing).
 - [ ] Search functionality.
-- [ ] 
 
 ## Sprints
 * Thursday:
     - [ ] Create product/order tables in database
     - [ ] Seed database with products
+    - [ ] Create Home page with static content and image
     - [ ] Create Bytes (products) page (returns data)
 * Friday:
     - [ ] Implement Django authentication
     - [ ] Relate Users to Orders table
-    - [ ] Begin styling pages
+    - [ ] Begin styling
 * Saturday:
-    - [ ] Add Cart functionality
+    - [ ] Add cart functionality
     - [ ] Practice Stripe API tutorial
 * Sunday:
-    - [ ] Implement checkout
+    - [ ] Finish Stripe API tutorial
+    - [ ] Implement checkout (no payment)
     - [ ] More styling
 * Monday:
-    - [ ] Implement Stripe API
-    - [ ] Finish any coding related to payments/checkout
-* Tuesday:
     - [ ] Implement Order History and Order Detail pages
+    - [ ] Implement Stripe API/payment functionality
+* Tuesday:
+    - [ ] Finish any coding related to checkout and payments
     - [ ] Handle roadblocks / feature overflow
-    - [ ] 
 * Wednesday:
     - [ ] Finalize/clean up code
+    - [ ] Polish styling
 
 
 
