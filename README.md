@@ -21,15 +21,14 @@ Baked Bytes uses Postgres for its menu and order history.
 | HTTP METHOD (_Verb_) | URL (_Nouns_)     | CRUD    | Response          | Notes        |
 | -------------------- | ----------------- | ------- | ----------------- | ------------ |
 | GET | `/checkout` | READ | Directs to checkout page with payment form | |
+| GET | `/session-status` | READ | Gets Stripe checkout session | |
 | POST | `/create-checout-session` | CREATE | Creates Stripe checkout session | |
-| GET | `/success.html` | READ | Redirects to success page after payment | |
-| GET | `/cancel.html` | READ | Redirects to cancellation page after user cancels | |
 | GET | `/bytes` | READ | Loads available bakery items | |
 | GET | `/bytes/:id` | READ | Loads item detail page | |
 | GET | `/home` | READ | Loads home page with About info | |
 | GET | `/cart` | READ | Displays items in the user's cart | |
 | POST | `/cart` | UPDATE | Adds user's selection to their cart | |
-| DELETE | `/cart` | DESTROY | Deletes item from user's cart | |
+| DELETE | `/cart/:id` | DESTROY | Deletes item from user's cart | |
 | GET | `/orders` | READ | Previous orders | |
 | GET | `/orders/:id` | READ | Loads details of a specific order | |
 
