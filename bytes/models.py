@@ -12,7 +12,7 @@ class Profile(models.Model):
     city = models.CharField(max_length = 200)
     # Should state use a tuple to set choices?
     state = models.CharField(max_length = 2)
-    zip = models.IntegerField(min = 0, max = 99999)
+    zip = models.PositiveIntegerField()
 
     def __str__(self):
         return f'{self.add1}, {self.add2}, {self.city}, {self.state} {self.zip}'
