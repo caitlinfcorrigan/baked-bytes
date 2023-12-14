@@ -7,3 +7,9 @@ def home(request):
 
 def about(request):
     return render(request, 'about.html')
+
+def bytes_index(request):
+    return render(request, 'bytes/index.html')
+
+def bytes_detail(request):
+    return render(request, 'bytes/detail.html')
