@@ -33,7 +33,7 @@ class Byte(models.Model):
     
 class Order(models.Model):
     # Prevent profile deletion if the user has orders
-    profile = models.ForeignKey(Profile, on_delete=models.PROTECT)
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
     order_date = models.DateTimeField()
     purchased = models.BooleanField()
 
@@ -50,4 +50,4 @@ class Order_Detail(models.Model):
     quantity = models.IntegerField()
 
     def __str__(self) -> str:
-        return f'{self.order} - {self.byte}'
+        return f'#{self.order} - Item: {self.byte}'

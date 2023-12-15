@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from django.shortcuts import render, redirect
-from .models import Profile, Byte
+from .models import Profile, Byte, Order, Order_Detail
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -30,14 +32,21 @@ def home(request):
 def about(request):
     return render(request, 'about.html')
 
+# Refactor as ListView (CBV) - need to move & rename html file
 def bytes_index(request):
     bytes = Byte.objects.all()
     return render(request, 'bytes/index.html', {'bytes': bytes})
 
+# Refactor as ListView (CBV) - need to move & rename html file
 def bytes_detail(request, byte_id):
     byte = Byte.objects.get(id=byte_id)
     return render(request, 'bytes/detail.html', {'byte': byte})
 
+# This needs to be a function view bc it's handling complex queries
 def cart(request):
-    cart = Order.objects.filter(user=request.user)
+    cart = Order.objects.filter(user_id=request.user, purchased = False)
     return render(request, 'cart.html', {'cart': cart})
+
+# CLASS-BASED VIEWS
+
+
