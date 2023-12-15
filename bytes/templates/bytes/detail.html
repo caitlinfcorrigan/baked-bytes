@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>WHERE byte = '{{ byte.item }}';</h1>
+
+<div class="card">
+    <div class="card-content">
+        <span class="card-title">{{ byte.item }}</span>
+        <p>{{ byte.description|linebreaks}}</p>
+        <p>$ {{ byte.price }}</p>
+    </div>
+    <div class="card-action">
+        <a href="#">Add to Cart</a>
+    </div>
+</div>
+
+{% endblock %}

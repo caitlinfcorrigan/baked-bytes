@@ -59,9 +59,9 @@ Baked Bytes uses Postgres for its menu and order history.
 ## Sprints
 * Thursday:
     - [ ] Create product/order tables in database
-    - [ ] Seed database with products
+    - [x] Seed database with products
     - [ ] Create Home page with static content and image
-    - [ ] Create Bytes (products) page (returns data)
+    - [x] Create Bytes (products) page (returns data)
 * Friday:
     - [ ] Implement Django authentication
     - [ ] Relate Users to Orders table

@@ -20,6 +20,19 @@
                 </ul>
                 <ul class="right">
                     <li><a href="{% url 'about' %}">About</a></li>
+                    <li><a href="{% url 'index' %}">All Bytes</a></li>
+                    {% if user.is_authenticated %}
+                    <li>CART PLACEHOLDER</li>
+                    <li>
+                        <form action="{% url 'logout' %}" method="POST">
+                        {% csrf_token %}
+                            <button type="submit">Logout</button>
+                        </form>
+                    </li>
+                    {% else %}
+                    <li><a href="{% url 'signup' %}">Sign Up</a></li>
+                    <li><a href="{% url 'login' %}">Log In</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </nav>
