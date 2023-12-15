@@ -11,7 +11,7 @@
     </div>
     {% if user.is_authenticated %}
     <div class="card-action">
-        <form action="{% url 'add_cart' byte.id %}" method="POST">
+        <form action="{% url 'cart_add' byte.id %}" method="POST">
             {% csrf_token %}
             <button type="submit" class="btn">Add to Cart</button>
         </form>

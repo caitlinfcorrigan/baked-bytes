@@ -34,11 +34,14 @@ class Byte(models.Model):
 class Order(models.Model):
     # Prevent profile deletion if the user has orders
     user = models.ForeignKey(User, on_delete=models.PROTECT)
-    order_date = models.DateTimeField()
-    purchased = models.BooleanField()
+    order_date = models.DateTimeField(auto_now=True)
+    purchased = models.BooleanField(default= False)
 
     def __str__(self):
         return f'{self.id} , {self.order_date}'
+    
+    def get_absolute_url(self):
+        return reverse('detail', kwargs={'order_id': self.id})
 
     class Meta:
         ordering = ['-order_date']
@@ -51,3 +54,6 @@ class Order_Detail(models.Model):
 
     def __str__(self) -> str:
         return f'#{self.order} - Item: {self.byte}'
+    
+    def get_absolute_url(self):
+        return reverse('detail', kwargs={'order_detail_id': self.id})

@@ -3,7 +3,7 @@
 
 <h1>WHERE purchased = False;</h1>
 
-{% for i in cart %}
+{% for i in items %}
     <div class="card">
         <div class="card-content">
             <a href="{% url 'detail' i.byte_id %}">

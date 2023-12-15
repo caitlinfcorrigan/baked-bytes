@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.shortcuts import render, redirect
-from .models import Profile, Byte, Order, Order_Detail
+from .models import User, Profile, Byte, Order, Order_Detail
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -43,9 +43,28 @@ def bytes_detail(request, byte_id):
     return render(request, 'bytes/detail.html', {'byte': byte})
 
 # This needs to be a function view bc it's handling complex queries
+@login_required
 def cart(request):
-    cart = Order.objects.filter(user_id=request.user, purchased = False)
-    return render(request, 'cart.html', {'cart': cart})
+    user = User.objects.get(username=request.user)
+    cart = Order.objects.get(user_id=user.id, purchased = False)
+    items = Order_Detail.objects.filter(order_id=cart.id)
+    # bytes = Bytes.objects.filter()
+    return render(request, 'cart.html', {"items": items})
+
+@login_required
+def cart_add(request, byte_id):
+    user = User.objects.get(username=request.user)
+    byte = Byte.objects.get(id = byte_id)
+    cart = Order.objects.filter(user_id=user.id, purchased = False)
+    if len(cart) == 0:
+      cart = Order(user_id=user.id)
+      cart.save()
+    else:
+       cart = Order.objects.get(user_id=user.id, purchased = False)
+    # Add logic to check for item in cart-- if there, increment
+    cart_item =  Order_Detail(order=cart, byte=byte, quantity = 1)
+    cart_item.save()    
+    return redirect('detail', byte_id=byte_id)
 
 # CLASS-BASED VIEWS
 
