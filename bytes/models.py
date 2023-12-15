@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from django.contrib.auth.models import User
 
 # Create your models here.
@@ -22,6 +23,31 @@ class Byte(models.Model):
     item = models.CharField(max_length=200)
     description = models.TextField(max_length=250)
     price = models.DecimalField(max_digits=5,decimal_places=2)
+    available = models.BooleanField(default = True)
 
     def __str__(self):
         return f'{self.item}'
+    
+    def get_absolute_url(self):
+        return reverse('detail', kwargs={'byte_id': self.id})
+    
+class Order(models.Model):
+    # Prevent profile deletion if the user has orders
+    profile = models.ForeignKey(Profile, on_delete=models.PROTECT)
+    order_date = models.DateTimeField()
+    purchased = models.BooleanField()
+
+    def __str__(self):
+        return f'{self.id} , {self.order_date}'
+
+    class Meta:
+        ordering = ['-order_date']
+
+class Order_Detail(models.Model):
+    # Order details is an indirect m:m between order & byte
+    order = models.ForeignKey(Order, on_delete=models.PROTECT)
+    byte = models.ForeignKey(Byte, on_delete=models.PROTECT)
+    quantity = models.IntegerField()
+
+    def __str__(self) -> str:
+        return f'{self.order} - {self.byte}'

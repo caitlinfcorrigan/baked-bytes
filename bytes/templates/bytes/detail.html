@@ -9,9 +9,15 @@
         <p>{{ byte.description|linebreaks}}</p>
         <p>$ {{ byte.price }}</p>
     </div>
+    {% if user.is_authenticated %}
     <div class="card-action">
         <a href="#">Add to Cart</a>
     </div>
+    {% else %}
+    <div class="card-action">
+        <p>Sign up or log in to start your order.</p>
+    </div>
+    {% endif %}
 </div>
 
 {% endblock %}

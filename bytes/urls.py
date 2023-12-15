@@ -7,4 +7,5 @@ urlpatterns = [
     path('bytes/', views.bytes_index, name='index'),
     path('bytes/<int:byte_id>/', views.bytes_detail, name='detail'),
     path('accounts/signup/', views.signup, name='signup'),
+    path('cart/', views.cart, name='cart')
 ]

@@ -38,3 +38,6 @@ def bytes_detail(request, byte_id):
     byte = Byte.objects.get(id=byte_id)
     return render(request, 'bytes/detail.html', {'byte': byte})
 
+def cart(request):
+    cart = Order.objects.filter(user=request.user)
+    return render(request, 'cart.html', {'cart': cart})
