@@ -3,4 +3,15 @@
 
 <h1>SELECT * FROM BYTES;</h1>
 
+{% for byte in bytes %}
+    <div class="card">
+        <div class="card-content">
+            <a href="{% url 'detail' byte.id %}">
+                <span class="card-title">{{ byte.item }}</span>
+            </a>
+            <p>$ {{ byte.price }}</p>
+        </div>
+    </div>
+{% endfor %}
+
 {% endblock %}

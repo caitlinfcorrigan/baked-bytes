@@ -16,3 +16,12 @@ class Profile(models.Model):
 
     def __str__(self):
         return f'{self.add1}, {self.add2}, {self.city}, {self.state} {self.zip}'
+    
+
+class Byte(models.Model):
+    item = models.CharField(max_length=200)
+    description = models.TextField(max_length=250)
+    price = models.DecimalField(max_digits=5,decimal_places=2)
+
+    def __str__(self):
+        return f'{self.item}'
