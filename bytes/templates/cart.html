@@ -7,9 +7,11 @@
     <div class="card">
         <div class="card-content">
             <a href="{% url 'detail' i.byte_id %}">
-                <span class="card-title">{{ i.byte_id }}</span>
+                <span class="card-title">{{ i.byte.item }}</span>
             </a>
+            <p>{{ i.byte.description }}</p>
             <p>Quantity: {{ i.quantity }}</p>
+            <p>Price: {{ i.byte.price }}</p>
         </div>
     </div>
 {% endfor %}

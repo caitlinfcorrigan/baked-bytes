@@ -47,7 +47,8 @@ def bytes_detail(request, byte_id):
 def cart(request):
     user = User.objects.get(username=request.user)
     cart = Order.objects.get(user_id=user.id, purchased = False)
-    items = Order_Detail.objects.filter(order_id=cart.id)
+    items = Order_Detail.objects.select_related('byte').filter(order_id=cart.id)
+    print(list(items))
     # bytes = Bytes.objects.filter()
     return render(request, 'cart.html', {"items": items})
 
