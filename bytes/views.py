@@ -7,7 +7,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import F, ExpressionWrapper, Sum
+from django.db.models import F, Sum
 
 # Create your views here.
 def signup(request):
@@ -47,20 +47,16 @@ def bytes_detail(request, byte_id):
 @login_required
 def cart(request):
     user = User.objects.get(username=request.user)
-    cart = Order.objects.get(user_id=user.id, purchased = False)
-    items = Order_Detail.objects.select_related('byte').filter(order_id=cart.id)
-    # queryset = queryset.annotate(
-    #          _price=Sum(
-    #          ExpressionWrapper(
-    #               F('mealingredient__amount') * 
-    #               F('mealingredient__ingredient__unit_price'),
-    #               output_field=DecimalField()
-    #          )
-    #     )
-    # )
-    items = items.annotate(subtotal=F('byte__price')*F('quantity'))
-    total = items.aggregate(Sum('subtotal'))
-    print(list(items))
+    cart = Order.objects.filter(user_id=user.id, purchased = False)
+    if len(cart) == 0:
+      cart = Order(user_id=user.id, purchased = False)
+      cart.save()
+      total = 0
+    else:
+      cart = Order.objects.get(user_id=user.id, purchased = False)
+      items = Order_Detail.objects.select_related('byte').filter(order_id=cart.id)
+      items = items.annotate(subtotal=F('byte__price')*F('quantity'))
+      total = items.aggregate(Sum('subtotal'))
     return render(request, 'cart.html', {"items": items,  "total": total})
 
 @login_required
@@ -84,6 +80,15 @@ def cart_add(request, byte_id):
     cart_item.save()    
     return redirect('cart')
 
+@login_required
+def orders(request):
+  user = User.objects.get(username=request.user)
+  cart = Order.objects.filter(user_id=user.id, purchased = True)
+  if len(cart) == 0:
+    return redirect('cart')
+  return render(request, 'orders.html', {"cart": cart})
+
 # CLASS-BASED VIEWS
+
 
 

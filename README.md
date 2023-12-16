@@ -61,7 +61,7 @@ Baked Bytes uses Postgres for its menu and order history.
 * Thursday:
     - [x] Create product/order tables in database
     - [x] Seed database with products
-    - [ ] Create Home page with static content and image
+    - [ ] Create Home page with static content
     - [x] Create Bytes (products) page (returns data)
 * Friday:
     - [x] Implement Django authentication
@@ -79,6 +79,7 @@ Baked Bytes uses Postgres for its menu and order history.
     - [ ] Implement Stripe API/payment functionality
 * Tuesday:
     - [ ] Finish any coding related to checkout and payments
+    - [ ] Add images
     - [ ] Handle roadblocks / feature overflow
 * Wednesday:
     - [ ] Finalize/clean up code

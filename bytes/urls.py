@@ -10,7 +10,9 @@ urlpatterns = [
     path('cart/', views.cart, name='cart'),
     path('cart/<int:byte_id>/add/', views.cart_add, name='cart_add'),
     # path('cart/<int:byte_id>/delete', views.CartDelete.as_view(), name='byte_delete'),
-    # path('cart/<int:byte_id>/update', views.CartUpdate, name='byte_update')
+    # path('cart/<int:byte_id>/update', views.CartUpdate, name='byte_update'),
+    path('orders/', views.orders, name='orders'),
+    # path('orders/<int:order_id>/', views.OrderDetail.as_view(), name="order_detail")
 ]
 
 
