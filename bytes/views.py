@@ -56,16 +56,22 @@ def cart(request):
 def cart_add(request, byte_id):
     user = User.objects.get(username=request.user)
     byte = Byte.objects.get(id = byte_id)
+    # Check if user has a cart
     cart = Order.objects.filter(user_id=user.id, purchased = False)
     if len(cart) == 0:
       cart = Order(user_id=user.id)
       cart.save()
     else:
        cart = Order.objects.get(user_id=user.id, purchased = False)
-    # Add logic to check for item in cart-- if there, increment
-    cart_item =  Order_Detail(order=cart, byte=byte, quantity = 1)
+    # Check cart for item; if there, increment
+    cart_item = Order_Detail.objects.filter(byte=byte, order=cart.id)
+    if len(cart_item) == 0:
+      cart_item =  Order_Detail(order=cart, byte=byte, quantity = 1)
+    else:
+       cart_item = Order_Detail.objects.get(order=cart.id, byte=byte, quantity = 1)
+       cart_item.quantity += 1
     cart_item.save()    
-    return redirect('detail', byte_id=byte_id)
+    return redirect('cart')
 
 # CLASS-BASED VIEWS
 

@@ -27,7 +27,8 @@ Baked Bytes uses Postgres for its menu and order history.
 | GET | `/bytes/:id` | READ | Loads item detail page | |
 | GET | `/home` | READ | Loads home page with About info | |
 | GET | `/cart` | READ | Displays items in the user's cart | |
-| POST | `/cart` | UPDATE | Adds user's selection to their cart | |
+| POST | `/cart/:id` | CREATE | Adds user's selection to their cart | |
+| PUT | `/cart/:id` | UPDATE | Updates the quantity in the user's cart | |
 | DELETE | `/cart/:id` | DESTROY | Deletes item from user's cart | |
 | GET | `/orders` | READ | Previous orders | |
 | GET | `/orders/:id` | READ | Loads details of a specific order | |
@@ -58,13 +59,13 @@ Baked Bytes uses Postgres for its menu and order history.
 
 ## Sprints
 * Thursday:
-    - [ ] Create product/order tables in database
+    - [x] Create product/order tables in database
     - [x] Seed database with products
     - [ ] Create Home page with static content and image
     - [x] Create Bytes (products) page (returns data)
 * Friday:
-    - [ ] Implement Django authentication
-    - [ ] Relate Users to Orders table
+    - [x] Implement Django authentication
+    - [x] Relate Users to Orders table
     - [ ] Begin styling
 * Saturday:
     - [ ] Add cart functionality
