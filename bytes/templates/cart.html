@@ -12,8 +12,13 @@
             <p>{{ i.byte.description }}</p>
             <p>Quantity: {{ i.quantity }}</p>
             <p>Price: {{ i.byte.price }}</p>
+            <p>Subtotal: {{i.subtotal}}</p>
         </div>
     </div>
 {% endfor %}
-
+<div class="card">
+    <div class="card-content">
+        <h3>Total: ${{total.subtotal__sum}}</h3>
+    </div>
+</div>
 {% endblock %}
