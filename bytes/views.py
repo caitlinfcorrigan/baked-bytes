@@ -127,6 +127,9 @@ def item_update(request, order_detail_id):
       form = OrderQuantityForm()
   return render(request, 'cart.html')
 
+def checkout(request):
+  pass
+
 # CLASS-BASED VIEWS
 class OrderUpdate(LoginRequiredMixin, UpdateView):
   model = Order

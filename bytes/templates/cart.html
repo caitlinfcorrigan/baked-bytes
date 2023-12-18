@@ -30,11 +30,10 @@
     </div>
 </div>
 <div class="card">
-    <!-- How to handle "purchase"? -->
     <div class="card-content">
         <form action="" method="POST">
             {% csrf_token %}
-            <button type="submit" class="btn">Buy</button>
+            <a href="{% url 'checkout' %}" type="submit" class="btn">Checkout</button>
         </form>
     </div>
 </div>
