@@ -88,7 +88,16 @@ def orders(request):
     return redirect('cart')
   return render(request, 'orders.html', {"cart": cart})
 
+def order_detail(request, order_id):
+  # order = Order.objects.get(id=order_id)
+  items = Order_Detail.objects.select_related('byte').filter(order_id=order_id)
+  items = items.annotate(subtotal=F('byte__price')*F('quantity'))
+  total = items.aggregate(Sum('subtotal'))
+  return render(request, 'order_detail.html', {'items': items, 'total': total})
+
 # CLASS-BASED VIEWS
 
 
+# class ByteDetail(DetailView):
+#   model = Byte   
 

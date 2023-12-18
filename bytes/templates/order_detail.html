@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Order Details</h1>
+<hr>
+{% for item in items %}
+    <div class="card">
+        <div class="card-content">
+            <a href="{% url 'detail' item.byte_id %}">
+                <span class="card-title">{{ item.byte.item }}</span>
+            </a>
+            <p>Quantity: {{ item.quantity }}</p>
+            <p>Price: {{ item.byte.price }}</p>
+            <p>Subtotal: {{item.subtotal}}</p>
+        </div>
+    </div>
+{% endfor %}
+
+{% endblock %}

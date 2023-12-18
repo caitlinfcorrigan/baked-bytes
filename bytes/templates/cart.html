@@ -21,4 +21,11 @@
         <h3>Total: ${{total.subtotal__sum}}</h3>
     </div>
 </div>
+<div class="card">
+    <!-- How to handle "purchase"? -->
+    <form action="{% url 'orders' %}" method="POST">
+        {% csrf_token %}
+        <button type="submit">Buy</button>
+    </form>
+</div>
 {% endblock %}

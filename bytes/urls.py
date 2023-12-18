@@ -12,7 +12,9 @@ urlpatterns = [
     # path('cart/<int:byte_id>/delete', views.CartDelete.as_view(), name='byte_delete'),
     # path('cart/<int:byte_id>/update', views.CartUpdate, name='byte_update'),
     path('orders/', views.orders, name='orders'),
-    # path('orders/<int:order_id>/', views.OrderDetail.as_view(), name="order_detail")
+    path('orders/<int:order_id>/', views.order_detail, name='order_detail')
+    # path('orders/<int:order_id>/', views.OrderDetail.as_view(), name="orders_detail"),
+
 ]
 
 
