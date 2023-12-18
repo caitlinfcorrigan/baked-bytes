@@ -14,6 +14,7 @@
             <p>Price: {{ i.byte.price }}</p>
             <p>Subtotal: {{i.subtotal}}</p>
         </div>
+        <!-- Add form to delete item and change quantity -->
     </div>
 {% endfor %}
 <div class="card">
@@ -23,7 +24,7 @@
 </div>
 <div class="card">
     <!-- How to handle "purchase"? -->
-    <form action="{% url 'orders' %}" method="POST">
+    <form action="" method="POST">
         {% csrf_token %}
         <button type="submit">Buy</button>
     </form>

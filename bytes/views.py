@@ -97,6 +97,9 @@ def order_detail(request, order_id):
 
 # CLASS-BASED VIEWS
 
+class OrderUpdate(LoginRequiredMixin, UpdateView):
+  model = Order
+  fields = ['purchased']
 
 # class ByteDetail(DetailView):
 #   model = Byte   
