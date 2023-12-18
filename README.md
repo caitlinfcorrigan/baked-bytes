@@ -27,8 +27,8 @@ Baked Bytes uses Postgres for its menu and order history.
 | GET | `/bytes/:id` | READ | Loads item detail page | |
 | GET | `/home` | READ | Loads home page with About info | |
 | GET | `/cart` | READ | Displays items in the user's cart | |
-| POST | `/cart/:id` | CREATE | Adds user's selection to their cart | |
-| PUT | `/cart/:id` | UPDATE | Updates the quantity in the user's cart | |
+| POST | `/cart/:id/add` | CREATE | Adds user's selection to their cart | |
+| POST | `/cart/:id/update` | CREATE | Updates item quantity in cart | |
 | DELETE | `/cart/:id` | DESTROY | Deletes item from user's cart | |
 | GET | `/orders` | READ | Previous orders | |
 | GET | `/orders/:id` | READ | Loads details of a specific order | |
@@ -68,7 +68,7 @@ Baked Bytes uses Postgres for its menu and order history.
     - [x] Relate Users to Orders table
     - [ ] Begin styling
 * Saturday:
-    - [ ] Add cart functionality
+    - [x] Add cart functionality
     - [ ] Practice Stripe API tutorial
 * Sunday:
     - [ ] Finish Stripe API tutorial
@@ -79,7 +79,7 @@ Baked Bytes uses Postgres for its menu and order history.
     - [ ] Implement Stripe API/payment functionality
 * Tuesday:
     - [ ] Finish any coding related to checkout and payments
-    - [ ] Add images
+    - [ ] Add images (S3?)
     - [ ] Handle roadblocks / feature overflow
 * Wednesday:
     - [ ] Finalize/clean up code

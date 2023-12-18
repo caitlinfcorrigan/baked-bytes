@@ -95,8 +95,14 @@ def order_detail(request, order_id):
   total = items.aggregate(Sum('subtotal'))
   return render(request, 'order_detail.html', {'items': items, 'total': total})
 
-# CLASS-BASED VIEWS
+def item_delete(request, order_detail_id):
+  print(request)
+  print(order_detail_id)
+  item = Order_Detail.objects.get(id=order_detail_id)
+  item.delete()
+  return redirect('cart')
 
+# CLASS-BASED VIEWS
 class OrderUpdate(LoginRequiredMixin, UpdateView):
   model = Order
   fields = ['purchased']
