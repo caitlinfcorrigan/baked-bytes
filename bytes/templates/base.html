@@ -22,7 +22,8 @@
                     <li><a href="{% url 'about' %}">About</a></li>
                     <li><a href="{% url 'index' %}">All Bytes</a></li>
                     {% if user.is_authenticated %}
-                    <li>CART PLACEHOLDER</li>
+                    <li><a href="{% url 'cart' %}">Cart</a></li>
+                    <li><a href="{% url 'orders' %}">Order History</a></li>
                     <li>
                         <form action="{% url 'logout' %}" method="POST">
                         {% csrf_token %}

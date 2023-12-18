@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>WHERE purchased = True;</h1>
+
+{% for order in orders %}
+    <div class="card">
+        <div class="card-content">
+            <a href="{% url 'order_detail' order.id %}">
+                <span class="card-title">#{{ order.id }}</span>
+            </a>
+            <p>{{ order.order_date }}</p>
+        </div>
+    </div>
+{% endfor %}
+
+{% endblock %}

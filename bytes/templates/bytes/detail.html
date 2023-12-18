@@ -9,9 +9,21 @@
         <p>{{ byte.description|linebreaks}}</p>
         <p>$ {{ byte.price }}</p>
     </div>
+    {% if user.is_authenticated %}
     <div class="card-action">
-        <a href="#">Add to Cart</a>
+        <form action="{% url 'cart_add' byte.id %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn">Add to Cart</button>
+        </form>
+        {% if message %}
+            <p>{{message}}</p>
+        {% endif %}
     </div>
+    {% else %}
+    <div class="card-action">
+        <p>Sign up or log in to start your order.</p>
+    </div>
+    {% endif %}
 </div>
 
 {% endblock %}
