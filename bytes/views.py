@@ -8,6 +8,8 @@ from django.views.generic import ListView, DetailView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import F, Sum
+from django.forms import modelformset_factory
+from .forms import OrderQuantityForm
 
 # Create your views here.
 def signup(request):
@@ -57,7 +59,8 @@ def cart(request):
       items = Order_Detail.objects.select_related('byte').filter(order_id=cart.id)
       items = items.annotate(subtotal=F('byte__price')*F('quantity'))
       total = items.aggregate(Sum('subtotal'))
-    return render(request, 'cart.html', {"items": items,  "total": total})
+      form = OrderQuantityForm()
+    return render(request, 'cart.html', {"items": items,  "total": total, "form": form})
 
 @login_required
 def cart_add(request, byte_id):
@@ -88,6 +91,7 @@ def orders(request):
     return redirect('cart')
   return render(request, 'orders.html', {"cart": cart})
 
+@login_required
 def order_detail(request, order_id):
   # order = Order.objects.get(id=order_id)
   items = Order_Detail.objects.select_related('byte').filter(order_id=order_id)
@@ -95,6 +99,7 @@ def order_detail(request, order_id):
   total = items.aggregate(Sum('subtotal'))
   return render(request, 'order_detail.html', {'items': items, 'total': total})
 
+@login_required
 def item_delete(request, order_detail_id):
   print(request)
   print(order_detail_id)
@@ -102,10 +107,28 @@ def item_delete(request, order_detail_id):
   item.delete()
   return redirect('cart')
 
+def item_update(request, order_detail_id):
+  item = Order_Detail.objects.get(id = order_detail_id)
+  # Process POST req
+  if request.method == 'POST':
+    form = OrderQuantityForm(request.POST)
+    print(request.POST['quantity'])
+    if form.is_valid():
+      item.quantity = request.POST['quantity']
+      item.save()
+      return redirect('cart')
+    else:
+      form = OrderQuantityForm()
+  return render(request, 'cart.html')
+
 # CLASS-BASED VIEWS
 class OrderUpdate(LoginRequiredMixin, UpdateView):
   model = Order
   fields = ['purchased']
+
+# class ItemUpdate(LoginRequiredMixin, UpdateView):
+#   model = Order_Detail
+#   fields = ['quantity']
 
 # class ByteDetail(DetailView):
 #   model = Byte   

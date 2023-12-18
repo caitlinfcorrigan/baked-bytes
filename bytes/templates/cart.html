@@ -13,14 +13,14 @@
             <p>Quantity: {{ i.quantity }}</p>
             <p>Price: {{ i.byte.price }}</p>
             <p>Subtotal: {{i.subtotal}}</p>
-            <form action="" method="POST">
+            <form action="{% url 'item_update' i.id %}" method="POST">
                 {% csrf_token %}
-                {{ cart_form.as_p }}
-                <button type="submit" class="btn">Update Quantity</button>
+                {{ form }}
+                <input type="submit" value="Update quantity" class="btn">
             </form>
-            <a href="{% url 'item_delete' i.id %}">Delete from Cart</a>
+            <br><br>
+            <a href="{% url 'item_delete' i.id %}" class="btn">Delete from Cart</a>
         </div>
-        <!-- Add form to delete item and change quantity -->
     </div>
 {% endfor %}
 {% if total.subtotal__sum >= 0 %}
@@ -31,10 +31,12 @@
 </div>
 <div class="card">
     <!-- How to handle "purchase"? -->
-    <form action="" method="POST">
-        {% csrf_token %}
-        <button type="submit">Buy</button>
-    </form>
+    <div class="card-content">
+        <form action="" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn">Buy</button>
+        </form>
+    </div>
 </div>
 {% else %}
 <h3>No items in cart.</h3>

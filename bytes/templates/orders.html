@@ -6,7 +6,7 @@
 {% for order in cart %}
     <div class="card">
         <div class="card-content">
-            <a href="{% url 'orders_detail' order.id %}">
+            <a href="{% url 'order_detail' order.id %}">
                 <span class="card-title">{{ order.id }}</span>
             </a>
             <p>{{ order.order_date }}</p>
