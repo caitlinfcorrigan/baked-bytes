@@ -86,14 +86,20 @@ def cart_add(request, byte_id):
 @login_required
 def orders(request):
   user = User.objects.get(username=request.user)
-  cart = Order.objects.filter(user_id=user.id, purchased = True)
-  if len(cart) == 0:
+  orders = Order.objects.filter(user_id=user.id, purchased = True)
+  # Update to calculate total in an accessible manner
+  totals = []
+  for order in orders:
+    detail = Order_Detail.objects.select_related('byte').filter(order_id=order.id)
+    detail = detail.annotate(subtotal=F('byte__price')*F('quantity'))
+    total = detail.aggregate(Sum('subtotal'))
+    totals.append({'order_id': order.id, 'total': total})
+  if len(orders) == 0:
     return redirect('cart')
-  return render(request, 'orders.html', {"cart": cart})
+  return render(request, 'orders.html', {"orders": orders, "totals": totals})
 
 @login_required
 def order_detail(request, order_id):
-  # order = Order.objects.get(id=order_id)
   items = Order_Detail.objects.select_related('byte').filter(order_id=order_id)
   items = items.annotate(subtotal=F('byte__price')*F('quantity'))
   total = items.aggregate(Sum('subtotal'))
