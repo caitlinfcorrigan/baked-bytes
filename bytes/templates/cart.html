@@ -2,6 +2,7 @@
 {% block content %}
 
 <h1>WHERE purchased = False;</h1>
+<h3>(Your cart)</h3>
 
 {% if item %}
 {% for i in items %}
@@ -40,6 +41,6 @@
     </div>
 </div>
 {% else %}
-<h3>No items in cart.</h3>
+<p>Your cart is empty.</p>
 {% endif %}
 {% endblock %}
