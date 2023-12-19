@@ -20,7 +20,7 @@ def signup(request):
       # Add user to db and login
       user = form.save()
       login(request, user)
-      return redirect('index')
+      return redirect('product_list')
     else:
       error_message = 'Invalid sign up - try again.'
   # For a bad POST or GET request, refresh the form
@@ -34,32 +34,31 @@ def home(request):
 def about(request):
     return render(request, 'about.html')
 
+def product_list(request):
+  products = Price.objects.select_related('product').all()
+  return render(request, 'bytes/product_list.html', {"products": products})
+
 # Class-based Views
 
-class ProductListView(ListView):
-    model = Product
-    context_object_name = "products"
-    template_name = "bytes/product_list.html"
+# class ProductListView(ListView):
+#   model = Product
+#   context_object_name = "products"
+#   template_name = "bytes/product_list.html"
 
 class ProductDetailView(DetailView):
-    model = Product
-    context_object_name = "product"
-    template_name = "bytes/product_detail.html"
+  model = Product
+  context_object_name = "product"
+  template_name = "bytes/product_detail.html"
 
-    def get_context_data(self, **kwargs):
-        context = super(ProductDetailView, self).get_context_data()
-        context["prices"] = Price.objects.filter(product=self.get_object())
-        return context
+  def get_context_data(self, **kwargs):
+    context = super(ProductDetailView, self).get_context_data()
+    context["prices"] = Price.objects.filter(product=self.get_object())
+    return context
 
-
+#   Create a checkout session and redirect the user to Stripe's checkout page
 class CreateStripeCheckoutSessionView(View):
-  """
-  Create a checkout session and redirect the user to Stripe's checkout page
-  """
-
   def post(self, request, *args, **kwargs):
     price = Price.objects.get(id=self.kwargs["pk"])
-
     checkout_session = stripe.checkout.Session.create(
       payment_method_types=["card"],
       line_items=[

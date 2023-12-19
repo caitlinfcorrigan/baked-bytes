@@ -72,11 +72,11 @@ Baked Bytes uses Postgres for its menu and order history.
     - [ ] Practice Stripe API tutorial
 * Sunday:
     - [ ] Finish Stripe API tutorial
-    - [ ] Implement checkout (no payment)
+    - [x] Implement checkout (no payment)
     - [ ] More styling
 * Monday:
     - [x] Implement Order History and Order Detail pages
-    - [ ] Implement Stripe API/payment functionality
+    - [x] Implement Stripe API/payment functionality
 * Tuesday:
     - [ ] Finish any coding related to checkout and payments
     - [ ] Add images (S3?)
