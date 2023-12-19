@@ -29,8 +29,8 @@ h1, h2, h3, h4, h5 {
 }
 
 nav {
-    color: #ffff;
-    background-color: teal;
+    color: darkmagenta;
+    background-color: pink;
 }
 
 nav .nav-wrapper{
@@ -49,7 +49,7 @@ footer .page-footer {
 
 .page-footer {
     color: #ffff;
-    background-color: teal;
+    background-color: pink;
 }
 
 div {
@@ -57,7 +57,7 @@ div {
 }
 
 .fake-button {
-    background-color: teal;
+    background-color: pink;
     border: none;
     color: #ffff;
     transition: 
@@ -67,4 +67,8 @@ div {
         transition-timing-function: ease;
         transition-delay: 0s;
         transition-property: background-color;
+}
+
+button.btn {
+    background-color: pink;
 }
