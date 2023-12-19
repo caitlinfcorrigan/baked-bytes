@@ -12,7 +12,9 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 
+
 # Add environ to handle .env file with Stripe keys
+import os
 import environ
 environ.Env()
 environ.Env.read_env()
@@ -126,6 +128,11 @@ STATIC_URL = 'static/'
 # Custom login/logout redirects
 LOGIN_REDIRECT_URL = '/bytes/'
 LOGOUT_REDIRECT_URL = '/'
+
+# Stripe redirects
+BACKEND_DOMAIN = os.environ["BACKEND_DOMAIN"]
+PAYMENT_SUCCESS_URL = os.environ["PAYMENT_SUCCESS_URL"]
+PAYMENT_CANCEL_URL = os.environ["PAYMENT_CANCEL_URL"]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

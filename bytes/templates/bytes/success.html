@@ -1,0 +1,13 @@
+{% extends "base.html" %} 
+
+<h1>Success</h1>
+
+{% block content %}
+<div class="alert alert-success" role="alert">
+  Thanks for purchasing our product
+  <a
+      href="{% url 'product_list' %}"
+      >Go to Products</a
+    >
+</div>
+{% endblock content %}

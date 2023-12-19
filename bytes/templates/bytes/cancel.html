@@ -1,0 +1,10 @@
+{% extends "base.html" %} 
+
+<h1>Cancel</h1>
+
+{% block content %}
+<div class="alert alert-info" role="alert">
+  Forgot to add something to your cart?
+  <a href="{% url 'product_list' %}">Go to Products.</a>
+</div>
+{% endblock content %}

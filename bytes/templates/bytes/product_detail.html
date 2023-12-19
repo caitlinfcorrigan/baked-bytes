@@ -3,6 +3,10 @@
 
 <h1>WHERE byte = '{{ product.name }}';</h1>
 
+{% block script %} 
+    <script src="https://js.stripe.com/v3/"></script> 
+{% endblock script%} 
+
 {% for price in prices %}
 <div class="card">
     <div class="card-content">
@@ -13,9 +17,9 @@
     {% if user.is_authenticated %}
     <div class="card-action">
         <!-- Update form action -->
-        <form action="" method="POST">
-            {% csrf_token %}
-            <button type="submit" class="btn">Add to Cart</button>
+        <form action="{% url 'create-checkout-session' price.id %}" method="POST">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-primary">Checkout</button>
         </form>
         {% if message %}
             <p>{{message}}</p>
