@@ -1,8 +1,17 @@
 from django.contrib import admin
-from .models import Profile, Byte, Order, Order_Detail
+from .models import Price, Product, ProductTag
 
 # Register your models here.
-admin.site.register(Profile)
-admin.site.register(Byte)
-admin.site.register(Order)
-admin.site.register(Order_Detail)
+# Registering Price inline with Product links during creation in Admin
+class PriceAdmin(admin.StackedInline):
+    model = Price
+
+@admin.register(Product)
+class ProductAdmin(admin.ModelAdmin):
+    inlines = (PriceAdmin,)
+
+    class Meta:
+        model = Product
+
+admin.site.register(ProductTag)
+admin.site.register(Price)

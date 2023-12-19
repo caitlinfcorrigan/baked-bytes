@@ -1,17 +1,19 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>WHERE byte = '{{ byte.item }}';</h1>
+<h1>WHERE byte = '{{ product.name }}';</h1>
 
+{% for price in prices %}
 <div class="card">
     <div class="card-content">
-        <span class="card-title">{{ byte.item }}</span>
-        <p>{{ byte.description|linebreaks}}</p>
-        <p>$ {{ byte.price }}</p>
+        <span class="card-title">{{ product.name }}</span>
+        <p>{{ product.desc|linebreaks}}</p>
+        <p>$ {{ price.price }}</p>
     </div>
     {% if user.is_authenticated %}
     <div class="card-action">
-        <form action="{% url 'cart_add' byte.id %}" method="POST">
+        <!-- Update form action -->
+        <form action="" method="POST">
             {% csrf_token %}
             <button type="submit" class="btn">Add to Cart</button>
         </form>
@@ -25,5 +27,5 @@
     </div>
     {% endif %}
 </div>
-
+{% endfor %}
 {% endblock %}

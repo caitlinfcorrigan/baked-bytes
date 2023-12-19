@@ -3,13 +3,13 @@
 
 <h1>SELECT * FROM bytes;</h1>
 
-{% for byte in bytes %}
+{% for product in products %}
     <div class="card">
         <div class="card-content">
-            <a href="{% url 'detail' byte.id %}">
-                <span class="card-title">{{ byte.item }}</span>
+            <a href="{% url 'product_detail' product.id %}">
+                <span class="card-title">{{ product.name }}</span>
             </a>
-            <p>$ {{ byte.price }}</p>
+            <p>$ {{ price.price }}</p>
         </div>
     </div>
 {% endfor %}

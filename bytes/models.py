@@ -1,59 +1,44 @@
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
+from django.template.defaultfilters import slugify
+from django.utils.translation import gettext_lazy as _
 
 # Create your models here.
 
-# Profile model for storing the user's contact info
-class Profile(models.Model):
-    # Users do not get deleted - only set to inactive
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    add1 = models.CharField(max_length = 200)
-    add2 = models.CharField(max_length = 200)
-    city = models.CharField(max_length = 200)
-    # Should state use a tuple to set choices?
-    state = models.CharField(max_length = 2)
-    zip = models.PositiveIntegerField()
-
-    def __str__(self):
-        return f'{self.add1}, {self.add2}, {self.city}, {self.state} {self.zip}'
     
 
-class Byte(models.Model):
-    item = models.CharField(max_length=200)
-    description = models.TextField(max_length=250)
-    price = models.DecimalField(max_digits=5,decimal_places=2)
-    available = models.BooleanField(default = True)
-
-    def __str__(self):
-        return f'{self.item}'
-    
-    def get_absolute_url(self):
-        return reverse('detail', kwargs={'byte_id': self.id})
-    
-class Order(models.Model):
-    # Prevent profile deletion if the user has orders
-    user = models.ForeignKey(User, on_delete=models.PROTECT)
-    order_date = models.DateTimeField(auto_now=True)
-    purchased = models.BooleanField(default= False)
-
-    def __str__(self):
-        return f'{self.id} , {self.order_date}'
-    
-    def get_absolute_url(self):
-        return reverse('detail', kwargs={'order_id': self.id})
-
-    class Meta:
-        ordering = ['-order_date']
-
-class Order_Detail(models.Model):
-    # Order details is an indirect m:m between order & byte
-    order = models.ForeignKey(Order, on_delete=models.PROTECT)
-    byte = models.ForeignKey(Byte, on_delete=models.PROTECT)
-    quantity = models.IntegerField()
+class ProductTag(models.Model):
+    name = models.CharField(
+        max_length=100, help_text=_("Designates the name of the tag.")
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self) -> str:
-        return f'#{self.order} - Item: {self.byte}'
-    
-    def get_absolute_url(self):
-        return reverse('detail', kwargs={'order_detail_id': self.id})
+        return self.name
+
+class Product(models.Model):
+    name = models.CharField(max_length=200)
+    tags = models.ManyToManyField(ProductTag, blank=True)
+    desc = models.TextField(_("Description"), blank=True)
+    quantity = models.IntegerField(default=1)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ("-created_at",)
+
+    def __str__(self):
+        return self.name
+
+class Price(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    price = models.DecimalField(decimal_places=2, max_digits=10)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self) -> str:
+        return f"{self.product.name} {self.price}"

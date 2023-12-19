@@ -13,6 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans&family=Roboto+Mono&family=Silkscreen&display=swap" rel="stylesheet">
     <!-- Import the JS library called materialize to handle custom forms -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    {% block script %}{% endblock %}
 </head>
 <body>
     <header class="navbar-fixed">
@@ -23,10 +24,7 @@
                 </ul>
                 <ul class="right">
                     <li><a href="{% url 'about' %}">About</a></li>
-                    <li><a href="{% url 'index' %}">All Bytes</a></li>
                     {% if user.is_authenticated %}
-                    <li><a href="{% url 'cart' %}">Cart</a></li>
-                    <li><a href="{% url 'orders' %}">Order History</a></li>
                     <li>
                         <form action="{% url 'logout' %}" method="POST">
                         {% csrf_token %}
@@ -47,6 +45,19 @@
     </main>
     <footer class="page-footer">
         <div class="right">All Rights Reserved, &copy; 2023 Baked Bytes &nbsp;</div>
-    </footer>    
+    </footer>   
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script
+        src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script> 
 </body>
 </html>
