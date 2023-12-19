@@ -2,7 +2,9 @@
 {% block content %}
 
 <h1>WHERE purchased = False;</h1>
+<h3>(Your cart)</h3>
 
+{% if item %}
 {% for i in items %}
     <div class="card">
         <div class="card-content">
@@ -23,7 +25,6 @@
         </div>
     </div>
 {% endfor %}
-{% if total.subtotal__sum >= 0 %}
 <div class="card">
     <div class="card-content">
         <h3>Total: ${{total.subtotal__sum}}</h3>
@@ -34,16 +35,14 @@
 {% endblock script%} 
 <div class="card">
     <div class="card-content">
-        <form
-          action="{% url 'create-checkout-session' cart.id %}"
-          method="POST"
-        >
-          {% csrf_token %}
-          <button type="submit" class="btn btn-primary">Checkout</button>
+        <form action="{% url 'cart_checkout'  %}" method="POST">
+            {% csrf_token %}
+            <!-- {{ buy }} -->
+            <button type="submit" class="btn">Checkout</button>
         </form>
     </div>
 </div>
 {% else %}
-<h3>No items in cart.</h3>
+<p>Your cart is empty.</p>
 {% endif %}
 {% endblock %}
