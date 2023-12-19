@@ -1,3 +1,6 @@
+html {
+    font-family: 'Roboto Mono', monospace;
+}
 
 body {
     display: flex;
@@ -12,4 +15,60 @@ main {
 footer.page-footer {
     padding-top: 0;
     text-align: right;
+}
+
+h1 {
+    font-size: 4.2rem;
+    line-height: 110%;
+    margin: 2.8rem 0 1.68rem 0;
+    font-family: 'Roboto Mono', monospace;
+}
+
+h1, h2, h3, h4, h5 {
+    font-weight: 400;
+}
+
+nav {
+    color: darkmagenta;
+    background-color: pink;
+}
+
+nav .nav-wrapper{
+    position: relative;
+    height: 100%;
+}
+
+nav .brand-logo.left {
+    font-family: 'Silkscreen', sans-serif;
+}
+
+footer .page-footer {
+    padding-top: 0;
+    text-align: right;
+}
+
+.page-footer {
+    color: #ffff;
+    background-color: pink;
+}
+
+div {
+    display: block;
+}
+
+.fake-button {
+    background-color: pink;
+    border: none;
+    color: #ffff;
+    transition: 
+        background-color .3s;
+        transition-behavior: normal;
+        transition-duration: 0.3s;
+        transition-timing-function: ease;
+        transition-delay: 0s;
+        transition-property: background-color;
+}
+
+button.btn {
+    background-color: pink;
 }
