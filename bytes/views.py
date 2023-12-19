@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import F, Sum
 from django.forms import modelformset_factory
-from .forms import OrderQuantityForm
+from .forms import OrderQuantityForm, CheckoutForm
 
 # Create your views here.
 def signup(request):
@@ -60,7 +60,8 @@ def cart(request):
       items = items.annotate(subtotal=F('byte__price')*F('quantity'))
       total = items.aggregate(Sum('subtotal'))
       form = OrderQuantityForm()
-    return render(request, 'cart.html', {"items": items,  "total": total, "form": form})
+      buy = CheckoutForm()
+    return render(request, 'cart.html', {"cart": cart, "items": items,  "total": total, "form": form, "buy": buy})
 
 @login_required
 def cart_add(request, byte_id):
@@ -84,6 +85,14 @@ def cart_add(request, byte_id):
     return redirect('cart')
 
 @login_required
+def cart_checkout(request):
+  user = User.objects.get(username=request.user)
+  cart = Order.objects.get(user_id=user.id, purchased = False)
+  cart.purchased = True
+  cart.save()
+  return redirect('orders')
+
+@login_required
 def orders(request):
   user = User.objects.get(username=request.user)
   orders = Order.objects.filter(user_id=user.id, purchased = True)
@@ -94,8 +103,8 @@ def orders(request):
     detail = detail.annotate(subtotal=F('byte__price')*F('quantity'))
     total = detail.aggregate(Sum('subtotal'))
     totals.append({'order_id': order.id, 'total': total})
-  if len(orders) == 0:
-    return redirect('cart')
+  # if len(orders) == 0:
+  #   return redirect('cart')
   return render(request, 'orders.html', {"orders": orders, "totals": totals})
 
 @login_required
@@ -113,6 +122,7 @@ def item_delete(request, order_detail_id):
   item.delete()
   return redirect('cart')
 
+@login_required
 def item_update(request, order_detail_id):
   item = Order_Detail.objects.get(id = order_detail_id)
   # Process POST req
@@ -128,9 +138,7 @@ def item_update(request, order_detail_id):
   return render(request, 'cart.html')
 
 # CLASS-BASED VIEWS
-class OrderUpdate(LoginRequiredMixin, UpdateView):
-  model = Order
-  fields = ['purchased']
+
 
 # class ItemUpdate(LoginRequiredMixin, UpdateView):
 #   model = Order_Detail

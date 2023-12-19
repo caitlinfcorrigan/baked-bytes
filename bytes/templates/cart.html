@@ -3,6 +3,7 @@
 
 <h1>WHERE purchased = False;</h1>
 
+{% if item %}
 {% for i in items %}
     <div class="card">
         <div class="card-content">
@@ -23,7 +24,6 @@
         </div>
     </div>
 {% endfor %}
-{% if total.subtotal__sum >= 0 %}
 <div class="card">
     <div class="card-content">
         <h3>Total: ${{total.subtotal__sum}}</h3>
@@ -32,9 +32,10 @@
 <div class="card">
     <!-- How to handle "purchase"? -->
     <div class="card-content">
-        <form action="" method="POST">
+        <form action="{% url 'cart_checkout'  %}" method="POST">
             {% csrf_token %}
-            <button type="submit" class="btn">Buy</button>
+            <!-- {{ buy }} -->
+            <button type="submit" class="btn">Checkout</button>
         </form>
     </div>
 </div>
