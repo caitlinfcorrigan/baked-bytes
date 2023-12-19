@@ -29,11 +29,17 @@
         <h3>Total: ${{total.subtotal__sum}}</h3>
     </div>
 </div>
+{% block script %} 
+    <script src="https://js.stripe.com/v3/"></script> 
+{% endblock script%} 
 <div class="card">
     <div class="card-content">
-        <form action="" method="POST">
-            {% csrf_token %}
-            <a href="{% url 'checkout' %}" type="submit" class="btn">Checkout</button>
+        <form
+          action="{% url 'create-checkout-session' cart.id %}"
+          method="POST"
+        >
+          {% csrf_token %}
+          <button type="submit" class="btn btn-primary">Checkout</button>
         </form>
     </div>
 </div>
