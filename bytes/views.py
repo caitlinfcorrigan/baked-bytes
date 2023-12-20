@@ -39,51 +39,11 @@ def product_list(request):
   products = Price.objects.select_related('product').all()
   return render(request, 'bytes/product_list.html', {"products": products})
 
-def create_checkout_session(request, price_id):
-    try:
-      price = Price.objects.get(id=price_id)
-      session = stripe.checkout.Session.create(
-        ui_mode = 'embedded',
-      line_items=[
-        {
-          #  Creating the Stripe Price object in-line to leverage Django data models
-          "price_data": {
-            "currency": "usd",
-            "unit_amount": int(price.price) * 100,
-            "product_data": {
-              "name": price.product.name,
-              "description": price.product.desc,
-            },
-          },
-          "quantity": price.product.quantity,
-        }
-      ],
-            mode='payment',
-            return_url=os.environ['PAYMENT_SUCCESS_URL'],
-        )
-    except Exception as e:
-        return str(e)
-
-    return JsonResponse(clientSecret=session.client_secret)
-
-# Class-based Views
-
-class ProductDetailView(DetailView):
-  model = Product
-  context_object_name = "product"
-  template_name = "bytes/product_detail.html"
-
-  def get_context_data(self, **kwargs):
-    context = super(ProductDetailView, self).get_context_data()
-    context["prices"] = Price.objects.filter(product=self.get_object())
-    return context
-
-#   Create a checkout session and redirect the user to Stripe's checkout page
-# class CreateStripeCheckoutSessionView(View):
-#   def post(self, request, *args, **kwargs):
-#     price = Price.objects.get(id=self.kwargs["pk"])
-#     checkout_session = stripe.checkout.Session.create(
-#       payment_method_types=["card"],
+# def create_checkout_session(request, price_id):
+#     try:
+#       price = Price.objects.get(id=price_id)
+#       session = stripe.checkout.Session.create(
+#         ui_mode = 'embedded',
 #       line_items=[
 #         {
 #           #  Creating the Stripe Price object in-line to leverage Django data models
@@ -98,12 +58,52 @@ class ProductDetailView(DetailView):
 #           "quantity": price.product.quantity,
 #         }
 #       ],
-#       metadata={"product_id": price.product.id},
-#       mode="payment",
-#       success_url=os.environ['PAYMENT_SUCCESS_URL'],
-#       cancel_url=os.environ['PAYMENT_CANCEL_URL'],
-#     )
-#     return redirect(checkout_session.url)
+#             mode='payment',
+#             return_url=os.environ['PAYMENT_SUCCESS_URL'],
+#         )
+#     except Exception as e:
+#         return str(e)
+
+#     return JsonResponse(clientSecret=session.client_secret)
+
+# Class-based Views
+
+class ProductDetailView(DetailView):
+  model = Product
+  context_object_name = "product"
+  template_name = "bytes/product_detail.html"
+
+  def get_context_data(self, **kwargs):
+    context = super(ProductDetailView, self).get_context_data()
+    context["prices"] = Price.objects.filter(product=self.get_object())
+    return context
+
+#   Create a checkout session and redirect the user to Stripe's checkout page
+class CreateStripeCheckoutSessionView(View):
+  def post(self, request, *args, **kwargs):
+    price = Price.objects.get(id=self.kwargs["pk"])
+    checkout_session = stripe.checkout.Session.create(
+      payment_method_types=["card"],
+      line_items=[
+        {
+          #  Creating the Stripe Price object in-line to leverage Django data models
+          "price_data": {
+            "currency": "usd",
+            "unit_amount": int(price.price) * 100,
+            "product_data": {
+              "name": price.product.name,
+              "description": price.product.desc,
+            },
+          },
+          "quantity": price.product.quantity,
+        }
+      ],
+      metadata={"product_id": price.product.id},
+      mode="payment",
+      success_url=os.environ['PAYMENT_SUCCESS_URL'],
+      cancel_url=os.environ['PAYMENT_CANCEL_URL'],
+    )
+    return redirect(checkout_session.url)
   
 
 class SuccessView(TemplateView):

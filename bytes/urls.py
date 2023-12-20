@@ -8,8 +8,8 @@ urlpatterns = [
     path('accounts/signup/', views.signup, name='signup'),
     path('bytes/', views.product_list, name='product_list'),
     path('bytes/<int:pk>/', views.ProductDetailView.as_view(), name='product_detail'),
-    path("create-checkout-session/<int:pk>/",views.create_checkout_session, name="create-checkout-session"),
-    # path("create-checkout-session/<int:pk>/",views.CreateStripeCheckoutSessionView.as_view(),  name="create-checkout-session"),
+    # path("create-checkout-session/<int:pk>/",views.create_checkout_session, name="create-checkout-session"),
+    path("create-checkout-session/<int:pk>/",views.CreateStripeCheckoutSessionView.as_view(),  name="create-checkout-session"),
     path("success/", views.SuccessView.as_view(), name="success"),
     path("cancel/", views.CancelView.as_view(), name="cancel"),
 
