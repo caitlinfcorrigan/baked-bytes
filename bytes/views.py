@@ -91,31 +91,41 @@ def cart_add(request, byte_id):
     cart_item.save()   
     return redirect('cart')
 
+def calculate_order_amount(items):
+    # Replace this constant with a calculation of the order's amount
+    # Calculate the order total on the server to prevent
+    # people from directly manipulating the amount on the client
+    return 1400
+
 # Create PaymentIntent for Stripe
-def createpayment(request):
-  if request.user.is_authenticated:
-    user = User.objects.get(username=request.user)
-    cart = Order.objects.filter(user_id=user.id, purchased = False)
-    cart = Order.objects.get(user_id=user.id, purchased = False)
-    items = Order_Detail.objects.select_related('byte').filter(order_id=cart.id)
-    items = items.annotate(subtotal=F('byte__price')*F('quantity'))
-    total = items.aggregate(Sum('subtotal'))
-    total = cart.aggregate(Sum('product_price'))['product_price__sum']
-    total = total * 100
-    stripe.api_key = os.environ['STRIPE_SECRET_KEY']
-    if request.method=="POST":
-      data = json.loads(request.body)
-      # Create a PaymentIntent with the order amount and currency
-      intent = stripe.PaymentIntent.create(
-        amount=total,
-        currency=data['currency'],
-        metadata={'integration_check': 'accept_a_payment'},
+def create_payment(request):
+    try:
+        data = json.loads(request.data)
+        # Create a PaymentIntent with the order amount and currency
+        intent = stripe.PaymentIntent.create(
+            amount=calculate_order_amount(data['items']),
+            currency='usd',
+            # In the latest version of the API, specifying the `automatic_payment_methods` parameter is optional because Stripe enables its functionality by default.
+            automatic_payment_methods={
+                'enabled': True,
+            },
         )
-      try:
-        return JsonResponse({'publishableKey':  
-          os.environ['STRIPE_PUBLISHABLE_KEY'], 'clientSecret': intent.client_secret})
-      except Exception as e:
-        return JsonResponse({'error':str(e)},status= 403)
+        return jsonify({
+            'clientSecret': intent['client_secret']
+        })
+    except Exception as e:
+        return jsonify(error=str(e)), 403
+      
+def paymentcomplete(request):
+  if request.method=="POST":
+    data = json.loads(request.POST.get("payload"))
+    if data["status"] == "succeeded":
+      user = User.objects.get(username=request.user)
+      cart = Order.objects.get(user_id=user.id, purchased = False)
+      cart.purchased = True
+      cart.save()
+      # save purchase here/ setup email confirmation
+    return render(request, "orders.html")      
 
 @login_required
 def cart_checkout(request):

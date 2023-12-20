@@ -5,42 +5,61 @@
 <h3>(Your cart)</h3>
 
 {% if items %}
-{% for i in items %}
-    <div class="card">
-        <div class="card-content">
-            <a href="{% url 'detail' i.byte_id %}">
-                <span class="card-title">{{ i.byte.item }}</span>
-            </a>
-            <p>{{ i.byte.description }}</p>
-            <p>Quantity: {{ i.quantity }}</p>
-            <p>Price: {{ i.byte.price }}</p>
-            <p>Subtotal: {{i.subtotal}}</p>
-            <form action="{% url 'item_update' i.id %}" method="POST">
-                {% csrf_token %}
-                {{ form }}
-                <input type="submit" value="Update quantity" class="btn">
-            </form>
-            <br><br>
-            <a href="{% url 'item_delete' i.id %}" class="btn">Delete from Cart</a>
-        </div>
+
+    <div>
+        <table style="width:100%">
+            <tr style="font-size: 20px;">
+                <th>Byte</th>
+                <th>Quantity</th>
+                <th></th>
+                <th>Price</th>
+                <th>Subtotal</th>
+            </tr>
+            {% for i in items %}
+            <tr>
+                <td><a href="{% url 'detail' i.byte_id %}">{{ i.byte.item }}</a></td>
+                <td>{{i.quantity}}</td>
+                <td>
+                    <form action="{% url 'item_update' i.id %}" method="POST">
+                    {% csrf_token %}
+                    {{ form }}
+                    <input type="submit" value="Update quantity" class="btn">
+                    </form>
+                    <a href="{% url 'item_delete' i.id %}" class="btn">Delete from Cart</a>
+                </td>
+                <td>$ {{i.byte.price}}</td>
+                <td>$ {{i.subtotal}}</td>
+                <td></td>
+            </tr>
+            {% endfor %}
+        </table>
     </div>
-{% endfor %}
+
 <div class="card">
     <div class="card-content">
-        <h3>Total: ${{total.subtotal__sum}}</h3>
-    </div>
-</div>
-<div class="card">
-    <!-- How to handle "purchase"? -->
-    <div class="card-content">
-        <form action="{% url 'cart_checkout'  %}" method="POST">
-            {% csrf_token %}
-            <!-- {{ buy }} -->
-            <button type="submit" class="btn">Checkout</button>
-        </form>
+        <h3 class="total">Total: ${{total.subtotal__sum}}</h3>
     </div>
 </div>
 {% else %}
 <p>Your cart is empty.</p>
 {% endif %}
+
+<h4 class="font-weight-bold my-3">Billing</h4>
+    <!-- Display a payment form -->
+    <form id="payment-form">
+        <div id="payment-element">
+          <!--Stripe.js injects the Payment Element-->
+        </div>
+        <button id="submit">
+          <div class="spinner hidden" id="spinner"></div>
+          <span id="button-text">Pay now</span>
+        </button>
+        <div id="payment-message" class="hidden"></div>
+      </form>
+</div>
+
+
+</div>
+
+
 {% endblock %}

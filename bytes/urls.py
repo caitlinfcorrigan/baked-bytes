@@ -13,8 +13,11 @@ urlpatterns = [
     path('cart/checkout', views.cart_checkout, name='cart_checkout'),
     path('cart/<int:order_detail_id>/update', views.item_update, name='item_update'),
     path('orders/', views.orders, name='orders'),
-    path('orders/<int:order_id>/', views.order_detail, name='order_detail')
+    path('orders/<int:order_id>/', views.order_detail, name='order_detail'),
     # path('orders/<int:order_id>/', views.OrderDetail.as_view(), name="orders_detail"),
+
+    path("create-payment-intent", views.createpayment, name="create-payment-intent"),
+    path("payment-complete", views.paymentcomplete, name="payment-complete"),
 
 ]
 
