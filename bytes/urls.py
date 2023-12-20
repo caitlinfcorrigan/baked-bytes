@@ -7,15 +7,14 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('accounts/signup/', views.signup, name='signup'),
     path('bytes/', views.product_list, name='product_list'),
-    # path('bytes/', views.ProductListView.as_view(), name='product_list'),
     path('bytes/<int:pk>/', views.ProductDetailView.as_view(), name='product_detail'),
-    path("create-checkout-session/<int:pk>/",views.CreateStripeCheckoutSessionView.as_view(),  name="create-checkout-session"),
+    path("create-checkout-session/<int:pk>/",views.create_checkout_session, name="create-checkout-session"),
+    # path("create-checkout-session/<int:pk>/",views.CreateStripeCheckoutSessionView.as_view(),  name="create-checkout-session"),
     path("success/", views.SuccessView.as_view(), name="success"),
     path("cancel/", views.CancelView.as_view(), name="cancel"),
 
     # path('bytes/', views.bytes_index, name='index'),
     # path('bytes/<int:byte_id>/', views.bytes_detail, name='detail'),
-
     # path('cart/', views.cart, name='cart'),
     # path('cart/<int:byte_id>/add/', views.cart_add, name='cart_add'),
     # path('cart/<int:order_detail_id>/delete', views.item_delete, name='item_delete'),

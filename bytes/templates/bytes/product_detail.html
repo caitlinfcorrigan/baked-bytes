@@ -17,7 +17,7 @@
     {% if user.is_authenticated %}
     <div class="card-action">
         <!-- Update form action -->
-        <form action="{% url 'create-checkout-session' price.id %}" method="POST">
+        <form action="{% url 'create-checkout-session' %}" method="POST">
           {% csrf_token %}
           <button type="submit" class="btn btn-primary">Checkout</button>
         </form>
