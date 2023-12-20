@@ -52,7 +52,7 @@ class Order_Detail(models.Model):
     byte = models.ForeignKey(Byte, on_delete=models.PROTECT)
     quantity = models.IntegerField()
 
-    def __str__(self) -> str:
+    def __str__(self):
         return f'#{self.order} - Item: {self.byte}'
     
     def get_absolute_url(self):

@@ -10,6 +10,13 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import F, Sum
 from django.forms import modelformset_factory
 from .forms import OrderQuantityForm, CheckoutForm
+# For Stripe:
+import os
+import json
+from django.http import JsonResponse
+import stripe
+
+stripe.api_key = os.environ['STRIPE_SECRET_KEY']
 
 # Create your views here.
 def signup(request):
@@ -49,7 +56,7 @@ def bytes_detail(request, byte_id):
 @login_required
 def cart(request):
     user = User.objects.get(username=request.user)
-    cart = Order.objects.filter(user_id=user.id, purchased = False)
+    cart = Order.objects.filter(user=user, purchased = False)
     if len(cart) == 0:
       cart = Order(user_id=user.id, purchased = False)
       cart.save()
@@ -79,19 +86,24 @@ def cart_add(request, byte_id):
     if len(cart_item) == 0:
       cart_item =  Order_Detail(order=cart, byte=byte, quantity = 1)
     else:
-       cart_item = Order_Detail.objects.get(order=cart.id, byte=byte, quantity = 1)
+       cart_item = Order_Detail.objects.get(order=cart.id, byte=byte)
        cart_item.quantity += 1
-    cart_item.save()    
+    cart_item.save()   
     return redirect('cart')
 
+# Create PaymentIntent for Stripe
 def createpayment(request):
   if request.user.is_authenticated:
-    cart  = Profile.objects.get(user=request.user).products
+    user = User.objects.get(username=request.user)
+    cart = Order.objects.filter(user_id=user.id, purchased = False)
+    cart = Order.objects.get(user_id=user.id, purchased = False)
+    items = Order_Detail.objects.select_related('byte').filter(order_id=cart.id)
+    items = items.annotate(subtotal=F('byte__price')*F('quantity'))
+    total = items.aggregate(Sum('subtotal'))
     total = cart.aggregate(Sum('product_price'))['product_price__sum']
     total = total * 100
-    stripe.api_key = 'your test secret key'
+    stripe.api_key = os.environ['STRIPE_SECRET_KEY']
     if request.method=="POST":
-      
       data = json.loads(request.body)
       # Create a PaymentIntent with the order amount and currency
       intent = stripe.PaymentIntent.create(
@@ -101,7 +113,7 @@ def createpayment(request):
         )
       try:
         return JsonResponse({'publishableKey':  
-          'your test publishable key', 'clientSecret': intent.client_secret})
+          os.environ['STRIPE_PUBLISHABLE_KEY'], 'clientSecret': intent.client_secret})
       except Exception as e:
         return JsonResponse({'error':str(e)},status= 403)
 
