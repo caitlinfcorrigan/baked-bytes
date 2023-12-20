@@ -84,6 +84,27 @@ def cart_add(request, byte_id):
     cart_item.save()    
     return redirect('cart')
 
+def createpayment(request):
+  if request.user.is_authenticated:
+    cart  = Profile.objects.get(user=request.user).products
+    total = cart.aggregate(Sum('product_price'))['product_price__sum']
+    total = total * 100
+    stripe.api_key = 'your test secret key'
+    if request.method=="POST":
+      
+      data = json.loads(request.body)
+      # Create a PaymentIntent with the order amount and currency
+      intent = stripe.PaymentIntent.create(
+        amount=total,
+        currency=data['currency'],
+        metadata={'integration_check': 'accept_a_payment'},
+        )
+      try:
+        return JsonResponse({'publishableKey':  
+          'your test publishable key', 'clientSecret': intent.client_secret})
+      except Exception as e:
+        return JsonResponse({'error':str(e)},status= 403)
+
 @login_required
 def cart_checkout(request):
   user = User.objects.get(username=request.user)
