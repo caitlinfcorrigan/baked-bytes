@@ -56,7 +56,20 @@ div {
     display: block;
 }
 
+.btn-add {
+    font-family: 'Roboto Mono', monospace;
+    background-color: pink;
+    transition: 
+        background-color .3s;
+        transition-behavior: normal;
+        transition-duration: 0.3s;
+        transition-timing-function: ease;
+        transition-delay: 0s;
+        transition-property: background-color;
+}
+
 .fake-nav {
+    font-family: 'Roboto Mono', monospace;
     background-color: pink;
     border: none;
     color: #ffff;
@@ -69,11 +82,28 @@ div {
         transition-property: background-color;
 }
 
+.delete {
+    background-color: pink;
+    color: black;
+    transition: 
+        background-color .3s;
+        transition-behavior: normal;
+        transition-duration: 0.3s;
+        transition-timing-function: ease;
+        transition-delay: 0s;
+        transition-property: background-color;
+    padding-block: 1px;
+    padding-inline: 6px;
+    border-width: 2px;
+    border: outset black;
+}
+
 button.btn {
     background-color: pink;
 }
 
 .btn-checkout {
+    font-family: 'Roboto Mono', monospace;
     background-color: pink;
     transition: 
         background-color .3s;
@@ -85,7 +115,7 @@ button.btn {
 }
 
 input.btn {
-    /* background-color: pink; */
+    background-color: pink;
     transition: 
         background-color .3s;
         transition-behavior: normal;
@@ -106,7 +136,6 @@ input.btn {
 
 #logo {
     display: flex;
-
 }
 
 #home-image{
@@ -114,4 +143,8 @@ input.btn {
     margin-left: auto;
     margin-right: auto;
     width: 50%;
+}
+
+#display {
+    margin-top: 4vh;
 }
