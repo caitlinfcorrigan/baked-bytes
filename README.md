@@ -11,7 +11,7 @@ Baked Bytes uses Postgres for its menu and order history.
 * APIs: Stripe (https://stripe.com/docs/checkout/embedded/quickstart?lang=python)
 
 ## Entity Relationship Diagram (ERD)
-![ERD](ERD.png)
+![ERD](Wireframes/ERD.png)
 
 ## Wireframes
 ![App flow](Wireframes/app-flow.png)
