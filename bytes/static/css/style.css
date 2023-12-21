@@ -56,7 +56,7 @@ div {
     display: block;
 }
 
-.fake-button {
+.fake-nav {
     background-color: pink;
     border: none;
     color: #ffff;
@@ -71,4 +71,47 @@ div {
 
 button.btn {
     background-color: pink;
+}
+
+.btn-checkout {
+    background-color: pink;
+    transition: 
+        background-color .3s;
+        transition-behavior: normal;
+        transition-duration: 0.3s;
+        transition-timing-function: ease;
+        transition-delay: 0s;
+        transition-property: background-color;
+}
+
+input.btn {
+    /* background-color: pink; */
+    transition: 
+        background-color .3s;
+        transition-behavior: normal;
+        transition-duration: 0.3s;
+        transition-timing-function: ease;
+        transition-delay: 0s;
+        transition-property: background-color;
+}
+
+
+#byte-image {
+    text-align: center;
+}
+
+#index-image{
+    text-align: right;
+}
+
+#logo {
+    display: flex;
+
+}
+
+#home-image{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
 }

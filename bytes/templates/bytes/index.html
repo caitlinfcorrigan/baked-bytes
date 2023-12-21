@@ -4,6 +4,7 @@
 <h1>SELECT * FROM bytes;</h1>
 
 {% for byte in bytes %}
+<div class="row">
     <div class="card">
         <div class="card-content">
             <a href="{% url 'detail' byte.id %}">
@@ -12,6 +13,7 @@
             <p>$ {{ byte.price }}</p>
         </div>
     </div>
+</div>
 {% endfor %}
 
 {% endblock %}

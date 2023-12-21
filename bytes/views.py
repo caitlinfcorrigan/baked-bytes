@@ -1,14 +1,12 @@
 from django.shortcuts import render
 from django.shortcuts import render, redirect
-from .models import User, Profile, Byte, Order, Order_Detail
+from .models import User, Photo, Byte, Order, Order_Detail
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import F, Sum
-from django.forms import modelformset_factory
 from .forms import OrderQuantityForm, CheckoutForm
 
 # Create your views here.
@@ -32,18 +30,14 @@ def signup(request):
 def home(request):
     return render(request, 'home.html')
 
-def about(request):
-    return render(request, 'about.html')
-
-# Refactor as ListView (CBV) - need to move & rename html file
 def bytes_index(request):
     bytes = Byte.objects.all()
     return render(request, 'bytes/index.html', {'bytes': bytes})
 
-# Refactor as ListView (CBV) - need to move & rename html file
 def bytes_detail(request, byte_id):
-    byte = Byte.objects.get(id=byte_id)
-    return render(request, 'bytes/detail.html', {'byte': byte})
+    byte = Byte.objects.get(id = byte_id)
+    image = Photo.objects.get(byte_id=byte.id)
+    return render(request, 'bytes/detail.html', {'byte': byte, "image": image})
 
 # This needs to be a function view bc it's handling complex queries
 @login_required
@@ -79,7 +73,7 @@ def cart_add(request, byte_id):
     if len(cart_item) == 0:
       cart_item =  Order_Detail(order=cart, byte=byte, quantity = 1)
     else:
-       cart_item = Order_Detail.objects.get(order=cart.id, byte=byte, quantity = 1)
+       cart_item = Order_Detail.objects.get(order=cart.id, byte=byte)
        cart_item.quantity += 1
     cart_item.save()    
     return redirect('cart')
@@ -136,14 +130,3 @@ def item_update(request, order_detail_id):
     else:
       form = OrderQuantityForm()
   return render(request, 'cart.html')
-
-# CLASS-BASED VIEWS
-
-
-# class ItemUpdate(LoginRequiredMixin, UpdateView):
-#   model = Order_Detail
-#   fields = ['quantity']
-
-# class ByteDetail(DetailView):
-#   model = Byte   
-

@@ -1,11 +1,50 @@
 <mxfile host="65bd71144e">
     <diagram id="XOdOyd93Dbi8DZtIPBH_" name="Page-1">
-        <mxGraphModel dx="253" dy="414" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="925" pageHeight="925" math="0" shadow="0">
+        <mxGraphModel dx="410" dy="359" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="400" pageHeight="400" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
-                <mxCell id="2" value="" style="whiteSpace=wrap;html=1;fillColor=#000000;strokeColor=none;" vertex="1" parent="1">
-                    <mxGeometry x="160" y="240" width="40" height="40" as="geometry"/>
+                <mxCell id="2" value="" style="whiteSpace=wrap;html=1;strokeColor=#724821;fillColor=#724821;" vertex="1" parent="1">
+                    <mxGeometry x="58" y="201" width="280" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="" style="whiteSpace=wrap;html=1;strokeColor=#724821;fillColor=#724821;" vertex="1" parent="1">
+                    <mxGeometry x="98" y="281" width="200" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="" style="whiteSpace=wrap;html=1;strokeColor=#FFFFCC;fillColor=#FFFFCC;" vertex="1" parent="1">
+                    <mxGeometry x="58" y="80" width="280" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="" style="whiteSpace=wrap;html=1;strokeColor=#FFFFCC;fillColor=#FFFFCC;" vertex="1" parent="1">
+                    <mxGeometry x="98" y="40" width="200" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="6" value="" style="whiteSpace=wrap;html=1;fillColor=#80591F;strokeColor=#80591F;" vertex="1" parent="1">
+                    <mxGeometry x="98" y="241" width="40" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" value="" style="whiteSpace=wrap;html=1;fillColor=#80591F;strokeColor=#80591F;" vertex="1" parent="1">
+                    <mxGeometry x="178" y="241" width="40" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="" style="whiteSpace=wrap;html=1;fillColor=#80591F;strokeColor=#80591F;" vertex="1" parent="1">
+                    <mxGeometry x="258" y="241" width="40" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="12" value="" style="whiteSpace=wrap;html=1;strokeColor=#FFFFFF;fillColor=#FFFFFF;" vertex="1" parent="1">
+                    <mxGeometry x="178" y="40" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="23" value="" style="whiteSpace=wrap;html=1;strokeColor=#FFFFFF;fillColor=#FFFFFF;" vertex="1" parent="1">
+                    <mxGeometry x="258" y="80" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="24" value="" style="whiteSpace=wrap;html=1;strokeColor=#FFFFFF;fillColor=#FFFFFF;" vertex="1" parent="1">
+                    <mxGeometry x="298" y="160" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="25" value="" style="whiteSpace=wrap;html=1;strokeColor=#FFFFFF;fillColor=#FFFFFF;" vertex="1" parent="1">
+                    <mxGeometry x="218" y="160" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="26" value="" style="whiteSpace=wrap;html=1;strokeColor=#FFFFFF;fillColor=#FFFFFF;" vertex="1" parent="1">
+                    <mxGeometry x="58" y="160" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="27" value="" style="whiteSpace=wrap;html=1;strokeColor=#FFFFFF;fillColor=#FFFFFF;" vertex="1" parent="1">
+                    <mxGeometry x="138" y="110" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="28" value="" style="whiteSpace=wrap;html=1;strokeColor=#FFFFFF;fillColor=#FFFFFF;" vertex="1" parent="1">
+                    <mxGeometry x="58" y="80" width="40" height="40" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
