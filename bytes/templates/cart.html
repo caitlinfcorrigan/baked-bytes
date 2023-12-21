@@ -2,7 +2,6 @@
 {% block content %}
 
 <h1>WHERE purchased = False;</h1>
-<h3>(Your cart)</h3>
 
 {% if items %}
 {% for i in items %}
@@ -18,10 +17,10 @@
             <form action="{% url 'item_update' i.id %}" method="POST">
                 {% csrf_token %}
                 {{ form }}
-                <input type="submit" value="Update quantity" class="btn">
+                <input type="submit" value="Update quantity" class="btn-checkout">
             </form>
             <br><br>
-            <a href="{% url 'item_delete' i.id %}" class="btn">Delete from Cart</a>
+            <a href="{% url 'item_delete' i.id %}" class="btn-checkout">Delete from Cart</a>
         </div>
     </div>
 {% endfor %}
@@ -36,7 +35,7 @@
         <form action="{% url 'cart_checkout'  %}" method="POST">
             {% csrf_token %}
             <!-- {{ buy }} -->
-            <button type="submit" class="btn">Checkout</button>
+            <button type="submit" class="btn-checkout">Checkout</button>
         </form>
     </div>
 </div>
