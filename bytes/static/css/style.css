@@ -72,3 +72,7 @@ div {
 button.btn {
     background-color: pink;
 }
+
+#byte-image {
+    text-align: center;
+}
