@@ -30,10 +30,6 @@ def signup(request):
 def home(request):
     return render(request, 'home.html')
 
-def about(request):
-    return render(request, 'about.html')
-
-
 def bytes_index(request):
     bytes = Byte.objects.all()
     images = Photo.objects.all()
@@ -135,14 +131,3 @@ def item_update(request, order_detail_id):
     else:
       form = OrderQuantityForm()
   return render(request, 'cart.html')
-
-# CLASS-BASED VIEWS
-
-
-# class ItemUpdate(LoginRequiredMixin, UpdateView):
-#   model = Order_Detail
-#   fields = ['quantity']
-
-# class ByteDetail(DetailView):
-#   model = Byte   
-
