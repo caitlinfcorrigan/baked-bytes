@@ -4,25 +4,35 @@
 <h1>WHERE purchased = False;</h1>
 
 {% if items %}
-{% for i in items %}
-    <div class="card">
-        <div class="card-content">
-            <a href="{% url 'detail' i.byte_id %}">
-                <span class="card-title">{{ i.byte.item }}</span>
-            </a>
-            <p>Quantity: {{ i.quantity }}</p>
-            <p>Price: {{ i.byte.price }}</p>
-            <p>Subtotal: {{i.subtotal}}</p>
-            <form action="{% url 'item_update' i.id %}" method="POST">
+<div>
+    <table style="width:100%">
+        <tr style="font-size: 20px;">
+            <th>Byte</th>
+            <th>Quantity</th>
+            <th></th>
+            <th>Price</th>
+            <th>Subtotal</th>
+        </tr>
+        {% for i in items %}
+        <tr>
+            <td><a href="{% url 'detail' i.byte_id %}">{{ i.byte.item }}</a></td>
+            <td>{{i.quantity}}</td>
+            <td>
+                <form action="{% url 'item_update' i.id %}" method="POST">
                 {% csrf_token %}
                 {{ form }}
                 <input type="submit" value="Update quantity" class="btn-checkout">
-            </form>
-            <br><br>
-            <a href="{% url 'item_delete' i.id %}" class="delete">Delete from Cart</a>
-        </div>
-    </div>
-{% endfor %}
+                </form>
+                <br>
+                <a href="{% url 'item_delete' i.id %}" class="delete">Delete Item</a>
+            </td>
+            <td>$ {{i.byte.price}}</td>
+            <td>$ {{i.subtotal}}</td>
+            <td></td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
 <div class="card">
     <div class="card-content">
         <h3>Total: ${{total.subtotal__sum}}</h3>
