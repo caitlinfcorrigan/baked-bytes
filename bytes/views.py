@@ -100,8 +100,8 @@ class CreateStripeCheckoutSessionView(View):
       ],
       metadata={"product_id": price.product.id},
       mode="payment",
-      success_url=os.environ['PAYMENT_SUCCESS_URL'],
-      cancel_url=os.environ['PAYMENT_CANCEL_URL'],
+      success_url='http://127.0.0.1:8000/bytes',
+      cancel_url='http://127.0.0.1:8000/bytes',
     )
     return redirect(checkout_session.url)
   
