@@ -32,8 +32,7 @@ def home(request):
 
 def bytes_index(request):
     bytes = Byte.objects.all()
-    images = Photo.objects.all()
-    return render(request, 'bytes/index.html', {'bytes': bytes, 'images': images})
+    return render(request, 'bytes/index.html', {'bytes': bytes})
 
 def bytes_detail(request, byte_id):
     byte = Byte.objects.get(id = byte_id)
@@ -74,7 +73,7 @@ def cart_add(request, byte_id):
     if len(cart_item) == 0:
       cart_item =  Order_Detail(order=cart, byte=byte, quantity = 1)
     else:
-       cart_item = Order_Detail.objects.get(order=cart.id, byte=byte, quantity = 1)
+       cart_item = Order_Detail.objects.get(order=cart.id, byte=byte)
        cart_item.quantity += 1
     cart_item.save()    
     return redirect('cart')
