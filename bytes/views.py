@@ -33,13 +33,12 @@ def home(request):
 def about(request):
     return render(request, 'about.html')
 
-# Refactor as ListView (CBV) - need to move & rename html file
+
 def bytes_index(request):
     bytes = Byte.objects.all()
-    # images = Photo.objects.select_related('Byte').filter(byte_id=bytes.id)
-    return render(request, 'bytes/index.html', {'bytes': bytes})
+    images = Photo.objects.all()
+    return render(request, 'bytes/index.html', {'bytes': bytes, 'images': images})
 
-# Refactor as ListView (CBV) - need to move & rename html file
 def bytes_detail(request, byte_id):
     byte = Byte.objects.get(id = byte_id)
     image = Photo.objects.get(byte_id=byte.id)
