@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Order Details</h1>
+<h1>WHERE order_id = {{order.id}}</h1>
+<br>
+<p>Purchased on {{order.order_date}}</p>
 <hr>
 {% for item in items %}
     <div class="card">
@@ -15,5 +17,11 @@
         </div>
     </div>
 {% endfor %}
+
+<div class="card">
+    <div class="card-content">
+        <p class="card-title">Total: {{ total.subtotal__sum }}</p>
+    </div>
+</div>
 
 {% endblock %}

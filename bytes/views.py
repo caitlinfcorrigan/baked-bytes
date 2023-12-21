@@ -103,10 +103,11 @@ def orders(request):
 
 @login_required
 def order_detail(request, order_id):
+  order = Order.objects.get(id=order_id)
   items = Order_Detail.objects.select_related('byte').filter(order_id=order_id)
   items = items.annotate(subtotal=F('byte__price')*F('quantity'))
   total = items.aggregate(Sum('subtotal'))
-  return render(request, 'order_detail.html', {'items': items, 'total': total})
+  return render(request, 'order_detail.html', {'items': items, 'total': total, 'order':order})
 
 @login_required
 def item_delete(request, order_detail_id):
