@@ -16,8 +16,8 @@ urlpatterns = [
     path('orders/<int:order_id>/', views.order_detail, name='order_detail'),
     # path('orders/<int:order_id>/', views.OrderDetail.as_view(), name="orders_detail"),
 
-    path("create-payment-intent", views.createpayment, name="create-payment-intent"),
-    path("payment-complete", views.paymentcomplete, name="payment-complete"),
+    path("create-payment-intent/", views.create_payment, name="create-payment-intent"),
+    path("payment-complete/", views.paymentcomplete, name="payment-complete"),
 
 ]
 
