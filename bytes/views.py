@@ -110,11 +110,11 @@ def create_payment(request):
                 'enabled': True,
             },
         )
-        return jsonify({
+        return JsonResponse({
             'clientSecret': intent['client_secret']
         })
     except Exception as e:
-        return jsonify(error=str(e)), 403
+        return JsonResponse(error=str(e)), 403
       
 def paymentcomplete(request):
   if request.method=="POST":
